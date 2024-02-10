@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const optionContainer = document.querySelector('.type-options');
     const selectedOptionInput = document.getElementById('propertyType');
+    const priceTagLabel = document.getElementById('price-tag');
 
     const types = ['House', 'Apartment', 'Land', 'Commercial', 'Bunglow', 'Villa'];
     const imgURLs = [
@@ -64,17 +65,21 @@ document.addEventListener('DOMContentLoaded', function() {
         var input = document.getElementById('propertyType').value.toLowerCase();
         var landTypeDiv = document.getElementById('land-types');
         var commercialTypeDiv = document.getElementById('commercial-types');
-        
+
         // Check if input value matches the condition
         if (input === 'land') {
             landTypeDiv.style.display = 'block'; // Show the div
             commercialTypeDiv.style.display = 'none'; // Show the div
-        }else if (input === 'commercial') {
+            priceTagLabel.style.display = 'block';
+            priceTagLabel.innerText = 'LKR  Per Purch';
+        } else if (input === 'commercial') {
             commercialTypeDiv.style.display = 'block'; // Show the div
             landTypeDiv.style.display = 'none'; // Show the div
+            priceTagLabel.innerText = 'LKR';
         } else {
             commercialTypeDiv.style.display = 'none'; // Hide the div
             landTypeDiv.style.display = 'none'; // Hide the div
+            priceTagLabel.innerText = 'LKR';
         }
     }
 

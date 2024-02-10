@@ -48,10 +48,11 @@ if(isset($_SESSION['userID'])){
                 </div>
                 <input type="hidden" id="commercialType" name="commercialType">
             </div>
-            <div>
-                <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; border: 1px solid;">
+                <div style="width: 50%;">
                     <div class="listing">
                         <input 
+                            style="padding-right: 10px;"
                             class="listing" 
                             name="heading" 
                             placeholder="Three Storie House Sell in..."
@@ -61,19 +62,35 @@ if(isset($_SESSION['userID'])){
                     <div class="listing">
                         <input 
                             class="listing" 
-                            name="title" 
-                            placeholder="Three Storie House Sell in..."
+                            name="price" 
+                            placeholder="3000000"
                         />
-                        <label class="listing">Ad Heading</label>
+                        <label class="listing">Price</label>
+                        <label class="listing-tag" id="price-tag" style="display: block;">LKR</label>
                     </div>
                     <div class="listing">
                         <input 
+                            type="number"
                             class="listing" 
-                            name="title" 
-                            placeholder="Three Storie House Sell in..."
+                            name="land-area" 
+                            placeholder="5"
                         />
-                        <label class="listing">Ad Heading</label>
+                        <label class="listing">Land Area</label>
+                        <label class="listing-tag" style="display: block;">Purchase</label>
                     </div>
+                    <div class="listing">
+                        <input 
+                            type="number"
+                            class="listing" 
+                            name="floor-area" 
+                            placeholder="2000"
+                        />
+                        <label class="listing">Floor Area</label>
+                        <label class="listing-tag" style="display: block;">Square Feet</label>
+                    </div>
+                </div>
+                <div style="width: 50%; display: flex; flex-direction: column; flex-grow: 1;">
+                    <textarea class="listing"></textarea>
                 </div>
             </div>
             

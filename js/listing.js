@@ -65,6 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
         var input = document.getElementById('propertyType').value.toLowerCase();
         var landTypeDiv = document.getElementById('land-types');
         var commercialTypeDiv = document.getElementById('commercial-types');
+        var floorAreaContainer =  document.getElementById('floor-area-container');
+        var description =  document.getElementById('description');
+        var constructionStatusContainer =  document.getElementById('construction-status-container');
+        var furnishingStatusContainer =  document.getElementById('furnishing-status-container');
 
         // Check if input value matches the condition
         if (input === 'land') {
@@ -72,14 +76,26 @@ document.addEventListener('DOMContentLoaded', function() {
             commercialTypeDiv.style.display = 'none'; // Show the div
             priceTagLabel.style.display = 'block';
             priceTagLabel.innerText = 'LKR  Per Purch';
+            floorAreaContainer.style.display = 'none'
+            description.style.height='155px'
+            constructionStatusContainer.style.display='none'
+            furnishingStatusContainer.style.display='none'
         } else if (input === 'commercial') {
             commercialTypeDiv.style.display = 'block'; // Show the div
             landTypeDiv.style.display = 'none'; // Show the div
             priceTagLabel.innerText = 'LKR';
+            floorAreaContainer.style.display = 'block'
+            description.style.height='212px'
+            constructionStatusContainer.style.display='block'
+            furnishingStatusContainer.style.display='block'
         } else {
             commercialTypeDiv.style.display = 'none'; // Hide the div
             landTypeDiv.style.display = 'none'; // Hide the div
             priceTagLabel.innerText = 'LKR';
+            floorAreaContainer.style.display = 'block'
+            description.style.height='212px'
+            constructionStatusContainer.style.display='block'
+            furnishingStatusContainer.style.display='block'
         }
     }
 
@@ -229,3 +245,69 @@ document.addEventListener('DOMContentLoaded', function() {
     const initialSpan = document.querySelector('.commercial-type-option');
     highlightSelectedSpan(initialSpan);
 });
+
+
+
+function handleOptionInput(optionType){
+    var currentStatusList = document.getElementById('current-status-list')
+    var constructionStatusList = document.getElementById('construction-status-list')
+    var furnishingStatusList = document.getElementById('furnishing-status-list')
+
+    var currentStatusDrop = document.getElementById('current-status-dropdown')
+    var constructionStatusDrop = document.getElementById('construction-status-dropdown')
+    var furnishingStatusDrop = document.getElementById('furnishing-status-dropdown')
+
+    if(optionType == 'currentStatus'){
+        if(currentStatusList.classList.contains('visible')){
+            currentStatusList.classList.remove('visible') 
+            currentStatusDrop.innerHTML = '<i class="fa-solid fa-caret-down"></i>'
+        }
+        else{
+            currentStatusList.classList.add('visible')
+            currentStatusDrop.innerHTML = '<i class="fa-solid fa-caret-up"></i>'
+        }
+    }if(optionType == 'constructionStatus'){
+        if(constructionStatusList.classList.contains('visible')){
+            constructionStatusList.classList.remove('visible') 
+            constructionStatusDrop.innerHTML = '<i class="fa-solid fa-caret-down"></i>'
+        }
+        else{
+            constructionStatusList.classList.add('visible')
+            constructionStatusDrop.innerHTML = '<i class="fa-solid fa-caret-up"></i>'
+        }
+    }if(optionType == 'furnishingStatus'){
+        if(furnishingStatusList.classList.contains('visible')){
+            furnishingStatusList.classList.remove('visible') 
+            furnishingStatusDrop.innerHTML = '<i class="fa-solid fa-caret-down"></i>'
+        }
+        else{
+            furnishingStatusList.classList.add('visible')
+            furnishingStatusDrop.innerHTML = '<i class="fa-solid fa-caret-up"></i>'
+        }
+    }
+}
+
+/*document.addEventListener('click', function(event) {
+    var dropdowns = document.querySelectorAll('.option-list');
+    for (var i = 0; i < dropdowns.length; i++) {
+        if (!dropdowns[i].contains(event.target)) {
+            dropdowns[i].classList.remove('visible');
+        }
+    }
+});*/
+
+function optionItemClick(optionType, optionValue){
+    var currentStatus = document.getElementById('current-status')
+    var constructionStatus = document.getElementById('construction-status')
+    var furnishingStatus = document.getElementById('furnishing-status')
+    if(optionType == 'currentStatus'){
+        currentStatus.value = `${optionValue}`
+        handleOptionInput(optionType)
+    }if(optionType == 'constructionStatus'){
+        constructionStatus.value = `${optionValue}`
+        handleOptionInput(optionType)
+    }if(optionType == 'furnishingStatus'){
+        furnishingStatus.value = `${optionValue}`
+        handleOptionInput(optionType)
+    }
+}

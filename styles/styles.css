@@ -251,11 +251,26 @@ label.listing-tag {
     width: 100px;
 }
 
+label.listing-dropdown{
+    position: absolute;
+    right: 5px;
+    top: 1px;
+    padding: 10px;
+    padding-top: 11px;
+}
+
 textarea.listing {
     width: 100%;
-    height: 210px;
+    height: 212px;
     box-sizing: border-box;
-    flex-grow: 1;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    padding: 10px;
+    padding-top: 15px;
+}
+
+textarea.listing:focus{
+    outline: noe;
 }
 
 .imgs-container {
@@ -392,4 +407,33 @@ pre {
 
 .commercial-type-option:hover {
     background-color: #f0f0f0;
+}
+
+.option-list{
+    border: 1px solid #bbb;
+    position: absolute;
+    top: 38px;
+    background-color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 99;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 0px 0px;
+    transition: opacity 2s ease-in-out;
+    opacity: 0; 
+    display: none;
+}
+
+.option-item{
+    padding: 10px;
+}
+
+.visible{
+    display: block;
+    opacity: 1;
+}
+
+.unvisibe{
+    display: none;
 }

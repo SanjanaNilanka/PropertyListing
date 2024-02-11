@@ -14,6 +14,7 @@ if(isset($_SESSION['userID'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/styles.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Yatra+One&family=Cute+Font&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ff7dc838b1.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../js/listing.js"></script>
     <title>List Your Property</title>
 </head>
@@ -42,13 +43,21 @@ if(isset($_SESSION['userID'])){
                 <input type="hidden" id="landType" name="landType" >
             </div>
             <div id="commercial-types" style="display: none;">
-                <h3>Commeercial Type</h3>
+                <h3>Commercial Type</h3>
                 <div class="commercial-type-options">
                     <!-- JavaScript will dynamically generate options here -->
                 </div>
                 <input type="hidden" id="commercialType" name="commercialType">
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; border: 1px solid;">
+            <h3>Other Details</h3>
+            <div style="
+                display: flex; 
+                justify-content: 
+                space-between; 
+                align-items: start; 
+                gap: 20px;
+                margin-top: -10px;
+                ">
                 <div style="width: 50%;">
                     <div class="listing">
                         <input 
@@ -78,7 +87,7 @@ if(isset($_SESSION['userID'])){
                         <label class="listing">Land Area</label>
                         <label class="listing-tag" style="display: block;">Purchase</label>
                     </div>
-                    <div class="listing">
+                    <div class="listing" id="floor-area-container">
                         <input 
                             type="number"
                             class="listing" 
@@ -89,11 +98,141 @@ if(isset($_SESSION['userID'])){
                         <label class="listing-tag" style="display: block;">Square Feet</label>
                     </div>
                 </div>
-                <div style="width: 50%; display: flex; flex-direction: column; flex-grow: 1;">
-                    <textarea class="listing"></textarea>
+                <div style="width: 50%; display: flex; flex-direction: column;">
+                    <div class="listing">
+                        <textarea class="listing" placeholder="" id="description" name = 'description'></textarea>
+                        <label class="listing">Discription</label>
+                    </div>
+                    
                 </div>
             </div>
-            
+            <div style="display: flex; justify-content: space-between; align-items: start; gap: 20px;">
+                <div class="listing">
+                    <input 
+                        style="padding-right: 10px;"
+                        class="listing" 
+                        name="bedrooms" 
+                        placeholder="Three Storie House Sell in..."
+                    />
+                    <label class="listing">Ad Heading</label>
+                </div>
+                <div class="listing">
+                    <input 
+                        style="padding-right: 10px;"
+                        class="listing" 
+                        name="bathrooms" 
+                        placeholder="Three Storie House Sell in..."
+                    />
+                    <label class="listing">Ad Heading</label>
+                </div>
+                <div class="listing">
+                    <input 
+                        style="padding-right: 10px;"
+                        class="listing" 
+                        name="floors" 
+                        placeholder="Three Storie House Sell in..."
+                    />
+                    <label class="listing">Ad Heading</label>
+                </div>
+                <div class="listing">
+                    <input 
+                        style="padding-right: 10px;"
+                        class="listing" 
+                        name="parkings" 
+                        placeholder="Three Storie House Sell in..."
+                    />
+                    <label class="listing">Ad Heading</label>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: start; gap: 20px;">
+                <div class="listing">
+                    <input 
+                        style="padding-right: 10px; cursor: pointer;"
+                        class="listing" 
+                        name="current-status" 
+                        id="current-status" 
+                        placeholder="Select Item"
+                        readonly
+                        onclick='handleOptionInput("currentStatus")'
+                    />
+                    <label class="listing">Current Status</label>
+                    <label class="listing-dropdown" onclick='handleOptionInput("currentStatus")' id="current-status-dropdown"><i class="fa-solid fa-caret-down"></i></label>
+                    <div class="option-list" id="current-status-list">
+                        <?php
+                        $currentStatus  = ['Available', 'Available Soon', 'Available with Discounts'];
+                    
+                        foreach ($currentStatus as $status) {
+                            echo "
+                            <div class='option-item' onclick='optionItemClick(\"currentStatus\",\"$status\")'>
+                                $status
+                            </div>
+                            ";
+                        }
+                        ?>
+                    </div>
+                </div>
+                <div class="listing" id="construction-status-container">
+                    <input 
+                        style="padding-right: 10px; cursor: pointer;"
+                        class="listing" 
+                        name="construction-status" 
+                        id="construction-status" 
+                        placeholder="Select Item"
+                        readonly
+                        onclick='handleOptionInput("constructionStatus")'
+                    />
+                    <label class="listing">Construction Status</label>
+                    <label class="listing-dropdown" onclick='handleOptionInput("constructionStatus")' id="construction-status-dropdown"><i class="fa-solid fa-caret-down"></i></label>
+                    <div class="option-list" id="construction-status-list">
+                        <?php
+                        $constructionStatus  = ['Under Construction', 'Ready to Sale / Rent', 'Finished Soon'];
+                    
+                        foreach ($constructionStatus as $status) {
+                            echo "
+                            <div class='option-item' onclick='optionItemClick(\"constructionStatus\",\"$status\")'>
+                                $status
+                            </div>
+                            ";
+                        }
+                        ?>
+                    </div>
+                </div>
+                <div class="listing" id="furnishing-status-container">
+                    <input 
+                        style="padding-right: 10px; cursor: pointer;"
+                        class="listing" 
+                        name="furnishing-status" 
+                        id="furnishing-status" 
+                        placeholder="Select Item"
+                        readonly
+                        onclick='handleOptionInput("furnishingStatus")'
+                    />
+                    <label class="listing">Furnishing Status</label>
+                    <label class="listing-dropdown" onclick='handleOptionInput("furnishingStatus")' id="furnishing-status-dropdown"><i class="fa-solid fa-caret-down"></i></label>
+                    <div class="option-list" id="furnishing-status-list">
+                        <?php
+                        $furnishingStatus  = ['Unfurnishing', 'Furnishing'];
+                    
+                        foreach ($furnishingStatus as $status) {
+                            echo "
+                            <div class='option-item' onclick='optionItemClick(\"furnishingStatus\",\"$status\")'>
+                                $status
+                            </div>
+                            ";
+                        }
+                        ?>
+                    </div>
+                </div>
+                <div class="listing">
+                    <input 
+                        style="padding-right: 10px;"
+                        class="listing" 
+                        name="parkings" 
+                        placeholder="Three Storie House Sell in..."
+                    />
+                    <label class="listing">Ad Heading</label>
+                </div>
+            </div>
         </form>
         <form id="rent" style="display: none;">
             <!-- Rent form content here -->

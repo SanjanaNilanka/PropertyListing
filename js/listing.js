@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
     const options = document.querySelectorAll('.option');
     const saleOption = document.querySelector('.option[data-target="sale"]');
 
@@ -42,16 +42,70 @@ document.addEventListener('DOMContentLoaded', function() {
             option.style.border = '1px solid#3cb64a';
         });
     });
+});*/
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const offerTypesContainer = document.querySelector('.offer-types');
+    const selectedOfferTypeInput = document.getElementById('offer-type');
+    const landSpan = document.getElementById('type-land');
+
+    const offerTypes = ['Sale', 'Rent'];
+    
+    
+
+    // Function to generate options dynamically
+    function generateOptions() {
+        offerTypes.forEach(function(type, index) {
+            const div = document.createElement('div');
+            div.innerHTML = `<span>${type}</span>`;
+            div.classList.add('option');
+            div.dataset.target = type.toLowerCase();
+            div.addEventListener('click', function() {
+                // Update value of input on click
+                selectedOfferTypeInput.value = type;
+                
+                // Highlight the clicked span
+                highlightSelectedSpan(div);
+            });
+            offerTypesContainer.appendChild(div);
+        });
+    }
+
+    
+
+    // Function to highlight the selected span
+    function highlightSelectedSpan(selectedSpan) {
+        const spans = document.querySelectorAll('.option');
+        spans.forEach(function(span) {
+            span.style.backgroundColor = 'transparent';
+            span.style.color = '#000';
+            span.style.border = '1px solid #aaa';
+        });
+        selectedSpan.style.backgroundColor = '#3cb64a';
+        selectedSpan.style.color = '#ddd';
+        selectedSpan.style.border = '1px solid #3cb64a';
+    }
+
+    // Call the function to generate options
+    generateOptions();
+
+    // Initially highlight the first option
+    const initialSpan = document.querySelector('.option');
+    highlightSelectedSpan(initialSpan);
 });
+
 
 //for property type
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function handleTypes() {
     const optionContainer = document.querySelector('.type-options');
     const selectedOptionInput = document.getElementById('propertyType');
     const priceTagLabel = document.getElementById('price-tag');
 
     const types = ['House', 'Apartment', 'Land', 'Commercial', 'Bunglow', 'Villa'];
+
     const imgURLs = [
         '../assets/house.webp',
         '../assets/apartment.webp',
@@ -65,10 +119,10 @@ document.addEventListener('DOMContentLoaded', function() {
         var input = document.getElementById('propertyType').value.toLowerCase();
         var landTypeDiv = document.getElementById('land-types');
         var commercialTypeDiv = document.getElementById('commercial-types');
-        var floorAreaContainer =  document.getElementById('floor-area-container');
-        var description =  document.getElementById('description');
-        var constructionStatusContainer =  document.getElementById('construction-status-container');
-        var furnishingStatusContainer =  document.getElementById('furnishing-status-container');
+        var floorAreaContainer = document.getElementById('floor-area-container');
+        var description = document.getElementById('description');
+        var constructionStatusContainer = document.getElementById('construction-status-container');
+        var furnishingStatusContainer = document.getElementById('furnishing-status-container');
 
         // Check if input value matches the condition
         if (input === 'land') {
@@ -105,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const span = document.createElement('div');
             span.innerHTML = `<span><img src='${imgURLs[index]}' /></span><span>${type}</span>`;
             span.classList.add('type-option');
+            span.id = `type-${type.toLowerCase()}`
             span.dataset.target = type.toLowerCase();
             span.addEventListener('click', function() {
                 // Update value of input on click
@@ -258,15 +313,20 @@ function handleOptionInput(optionType){
     var furnishingStatusDrop = document.getElementById('furnishing-status-dropdown')
 
     if(optionType == 'currentStatus'){
+        constructionStatusList.classList.remove('visible') 
+        furnishingStatusList.classList.remove('visible') 
         if(currentStatusList.classList.contains('visible')){
             currentStatusList.classList.remove('visible') 
             currentStatusDrop.innerHTML = '<i class="fa-solid fa-caret-down"></i>'
+            
         }
         else{
             currentStatusList.classList.add('visible')
             currentStatusDrop.innerHTML = '<i class="fa-solid fa-caret-up"></i>'
         }
     }if(optionType == 'constructionStatus'){
+        currentStatusList.classList.remove('visible') 
+        furnishingStatusList.classList.remove('visible') 
         if(constructionStatusList.classList.contains('visible')){
             constructionStatusList.classList.remove('visible') 
             constructionStatusDrop.innerHTML = '<i class="fa-solid fa-caret-down"></i>'
@@ -276,6 +336,8 @@ function handleOptionInput(optionType){
             constructionStatusDrop.innerHTML = '<i class="fa-solid fa-caret-up"></i>'
         }
     }if(optionType == 'furnishingStatus'){
+        currentStatusList.classList.remove('visible') 
+        constructionStatusList.classList.remove('visible') 
         if(furnishingStatusList.classList.contains('visible')){
             furnishingStatusList.classList.remove('visible') 
             furnishingStatusDrop.innerHTML = '<i class="fa-solid fa-caret-down"></i>'
@@ -286,15 +348,6 @@ function handleOptionInput(optionType){
         }
     }
 }
-
-/*document.addEventListener('click', function(event) {
-    var dropdowns = document.querySelectorAll('.option-list');
-    for (var i = 0; i < dropdowns.length; i++) {
-        if (!dropdowns[i].contains(event.target)) {
-            dropdowns[i].classList.remove('visible');
-        }
-    }
-});*/
 
 function optionItemClick(optionType, optionValue){
     var currentStatus = document.getElementById('current-status')
@@ -311,3 +364,54 @@ function optionItemClick(optionType, optionValue){
         handleOptionInput(optionType)
     }
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.getElementById('city');
+    const searchResults = document.getElementById('city-list');
+  
+  
+    fetch('../js/cities.json')
+    .then(response => response.json())
+    .then(data => {
+      searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.toLowerCase();
+        let resultsHtml = '';
+        let count = 0;
+
+        if (searchTerm.length > 0) {
+          for (const district in data) {
+            data[district].cities.forEach(city => {
+              if (count < 10 && city.toLowerCase().includes(searchTerm)) {
+                resultsHtml += `<div class="city-item">
+                                  <span class="city">${city}</span>
+                                  <span class="district">,&nbsp;${district} District</span>
+                                </div>`;
+                count++;
+              }
+            });
+          }
+
+          if (resultsHtml !== '') {
+            searchResults.innerHTML = resultsHtml;
+            searchResults.style.display = 'block';
+            const resultDivs = searchResults.querySelectorAll('.city-item');
+            resultDivs.forEach(div => {
+              div.addEventListener('click', function() {
+                searchInput.value = div.querySelector('.city').textContent;
+                searchResults.style.display = 'none';
+              });
+            });
+          } else {
+            searchResults.innerHTML = '';
+            searchResults.style.display = 'none';
+          }
+        } else {
+          searchResults.innerHTML = '';
+          searchResults.style.display = 'none';
+        }
+      });
+    })
+    .catch(error => console.error('Error fetching JSON:', error));
+
+  });
+  

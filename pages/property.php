@@ -148,7 +148,7 @@
         <br/>
         <span class="property-price">
             <?php
-            if($offerType == 'sale'){
+            if($offerType === 'Sale' || $offerType === 'sale'){
                 if($propertyType == 'land'){
                     echo "$price LKR per Purchase";
                 }else{
@@ -314,17 +314,24 @@
                             </div>
                         </div>
                         <h3>Sent Message to Owner</h3>
-                        <form>
+                        <form method="POST" action="../scripts/msg-process.php">
                         <div style="display: flex; justify-content: space-between; align-items: start; gap: 20px;">
                             <div style="display: flex; flex-direction: column; gap: 10px; width: 50%;">
-                                <input class="msg" placeholder="Your Name"/>
-                                <input class="msg" placeholder="Your Email"/>
-                                <input class="msg" placeholder="Your Contact Number"/>
+                                <input class="msg" name="name" placeholder="Your Name"/>
+                                <input class="msg" name="email" placeholder="Your Email"/>
+                                <input class="msg" name="contact" placeholder="Your Contact Number"/>
+                                <input type="hidden" class="msg" name="listedUser" value="<?php echo $listedUser ?>" placeholder="Your Contact Number"/>
+                                <input type="hidden" class="msg" name="propertyID" value="<?php echo $propertyID ?>" placeholder="Your Contact Number"/>
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 20px; width: 50%; height: 100%;">
-                                <textarea class="msg" placeholder="Message"></textarea>
+                                <textarea class="msg" name="msg" placeholder="Message"></textarea>
                             </div>
                         </div>
+                        <?php
+                        if (isset($_GET['success'])){
+                            echo '<p style="color:green;  margin-bottom: -10px; text-align:center;">'.$_GET['success'].'</p>';
+                        }
+                        ?>
                         <br/>
                         <button class="primary" style="width: 100%;">Send</button>
                         </form>

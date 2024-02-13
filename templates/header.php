@@ -46,11 +46,52 @@
             <span class='sub-nav-item'>Buildings</span>
         </div>
     </div>
-    <div>
-        <a href="../pages/listing.php"><button class="secondary">List Your Property</button></a>
-        <button class="primary">Sign In</button>
-        <button class="primary">Sign Up</button>
-    </div>
+
+    <?php
+    require_once '../config/config.php';
+    if(isset($_SESSION['userID'])){
+        $userID = $_SESSION['userID'];
+        $query = "SELECT firstname, lastname FROM users WHERE userID='$userID'";
+        $result = $conn->query($query);
+        $firstname;
+        $lastname;
+
+        while($row = $result->fetch_assoc()){
+            $firstname = $row['firstname'];
+            $lastname = $row['lastname'];
+        }
+        echo "
+        <div style='display: flex; justify-content: space-between; align-items: center; gap: 20px;'>
+            <span onclick='handleMenu()' style='cursor:pointer;'>$firstname $lastname</span>
+            <span onclick='handleMenu()' class='profile-img'>S</span>
+        </div>
+        <div class='menu-container' id='menu'>
+            <a class='menu-item' href='../pages/profile.php'>
+                <span class='menu-item'>Persional Info</span>
+            </a>
+            <a class='menu-item' href='../pages/my-listings.php'>
+                <span class='menu-item'>My Listings</span>
+            </a>
+            <a class='menu-item' href='../pages/my-msg.php'>
+                <span class='menu-item'>My Messages</span>
+            </a>
+            <a href='../pages/listing.php'><button style='width: 100%;' class='secondary'>List Your Property</button></a>
+            <form action='../scripts/logout-process.php'>
+                <button type='submit' style='width: 100%;' class='primary'>Log out</button>
+            </form>
+        </div>
+        ";
+    }else{
+        echo "
+        <div>
+            <a href='../pages/listing.php'><button class='secondary'>List Your Property</button></a>
+            <a href='../pages/signin.php'><button class='primary'>Sign In</button></a>
+            <a href='../pages/signup.php'><button class='primary'>Sign Up</button></a>
+        </div>
+        ";
+    }
+    ?>
+    
 </header>
 
 <script>
@@ -96,4 +137,14 @@
     }
 
     document.addEventListener("DOMContentLoaded", displayNavOption());
+
+    function handleMenu(){
+        var typesList = document.getElementById('menu')
+        if(typesList.classList.contains('menu-container-visible')){
+            typesList.classList.remove('menu-container-visible')
+        }else{
+            typesList.classList.add('menu-container-visible')
+        }
+    }
+
 </script>

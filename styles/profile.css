@@ -1,0 +1,44 @@
+.profile-letter-img{
+    border: #0C8CE9 2px solid;
+    border-radius: 100%;
+    padding: 8px 28px;
+    color: #0C8CE9;
+    font-size: 65px;
+    font-weight: 500;
+}
+
+.profile-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.profle-popup{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+input.booking{
+    border: #3cb64a 1px solid;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+input.booking:focus{
+    outline: none;
+}

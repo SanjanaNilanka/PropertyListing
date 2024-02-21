@@ -80,6 +80,9 @@
             }
             $moreImagesCount = count($imgURLs)-3;
         ?>
+        <?php
+        if($coverImg !== '' || $coverImg !== null || $coverImg != '../assets/no_image.png'){
+        ?>
         <div class="imgs-container">
             
             <img class="cover-img" src="<?php echo $coverImg ?>" />
@@ -102,6 +105,15 @@
             </div>
         </div>
         <br/>
+        <?php
+        }else{
+        ?>
+        <div>
+        <img class="cover-img" src="<?php echo $coverImg ?>" />
+        </div>
+        <?php
+        }
+        ?>
         <h1><?php echo $heading?></h1>
         <div style="display: flex; justify-content: start; align-items: center; gap: 10px;">
             <i class="fa-solid fa-location-dot"></i>
@@ -152,7 +164,13 @@
                 if($propertyType == 'land'){
                     echo "$price LKR per Purchase";
                 }else{
-                    echo "$price LKR";
+                    echo "$price LKR Total Amount";
+                }
+            }else if($offerType === 'Rent' || $offerType === 'rent'){
+                if($propertyType == 'land'){
+                    echo "$price LKR per Purchase";
+                }else{
+                    echo "$price LKR per Month";
                 }
             }
             ?>

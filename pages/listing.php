@@ -2,7 +2,7 @@
 session_start();
 
 if(!isset($_SESSION['userID'])){
-    header("Location: ../pages/home.php");
+    header("Location: ../pages/signin.php?nav-error=Sign in to list your property");
     exit();
 }else{
     require_once '../config/config.php';

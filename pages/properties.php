@@ -174,11 +174,14 @@ require_once '../config/config.php';
                             <div class='center-items'>
                                 <div>
                                     <?php  
-                                    if($propertyTypeDB == 'Land'){
-                                        echo "<span style='color:#3cb64a; font-size: 20px; font-weight: 700;'>LKR $price <span style='font-size: 14px; color: gray; font-weight: 500;'>Per Perch</span></span>";
-                                    }else{
-                                        echo "<span style='color:#3cb64a; font-size: 20px; font-weight: 700;'>LKR $price <span style='font-size: 14px; color: gray; font-weight: 500;'>Total</span></span>";
-                                    }
+                                    if($offerTypeDB === 'sale' || $offerTypeDB === 'Sale'){
+                                        if($propertyTypeDB === 'Land'){
+                                            echo "<span style='color:#3cb64a; font-size: 20px; font-weight: 700;'>LKR $price <span style='font-size: 14px; color: gray; font-weight: 500;'>Per Perch</span></span>";
+                                        }else{
+                                            echo "<span style='color:#3cb64a; font-size: 20px; font-weight: 700;'>LKR $price <span style='font-size: 14px; color: gray; font-weight: 500;'>Total</span></span>";
+                                        }
+                                    }else if($offerTypeDB === 'rent' || $offerTypeDB === 'Rent')
+                                        echo "<span style='color:#3cb64a; font-size: 20px; font-weight: 700;'>LKR $price <span style='font-size: 14px; color: gray; font-weight: 500;'>Per Month</span></span>";
                                     ?> 
                                 </div>
                                 <div style='font-size: 14px;'>

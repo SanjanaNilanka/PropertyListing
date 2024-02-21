@@ -20,6 +20,11 @@ if(isset($_SESSION['userID'])){
 <body>
     
     <div class="login-container">
+        <?php
+        if (isset($_GET['nav-error'])){
+            echo '<p style="color:red; margin-top: -10px; margin-bottom: -10px; text-align:center;">'.$_GET['nav-error'].'</p>';
+        }
+        ?>
         <a href="../index.php">
             <div class="brand-name">
                 <span style="font-size: 60px; font-weight: 700; color: #3cb64a;">Ceylon</span>
